@@ -1,12 +1,15 @@
 <template>
-  <div 
-    class="task-container" 
-    :class="{ 'close' : taskStatus }">
+  <div
+    :class="{ 'close' : taskStatus }"
+    class="task-container">
 
-    <input type="checkbox" name="" id="" 
-      @change="getValue()" 
-      :checked="taskStatus" >
-      
+    <input
+      id=""
+      :checked="taskStatus"
+      type="checkbox"
+      name=""
+      @change="getValue()" >
+
     {{ taskContent }}
     <button @click="remove"> - </button>
   </div>
@@ -15,43 +18,42 @@
 
 <script>
 export default {
-  props:{
+  props: {
     taskId: {
       type: Number,
-      default: ''
+      default: 0,
     },
     taskContent: {
       type: String,
-      default: ''
+      default: '',
     },
     taskStatus: {
       type: Boolean,
+      default: false,
     },
   },
-  data(){
-    return{
-      isClose: false
-    }
+  data() {
+    return {
+      isClose: false,
+    };
   },
-  computed:{
+  computed: {
   },
   mounted() {
     this.isClose = this.taskStatus;
   },
-  methods:{
+  methods: {
     remove() {
-        this.$emit('removeTask');
+      this.$emit('removeTask');
     },
     getValue() {
-      this.isClose = !this.isClose
-      this.$emit('popStatus', 
-        { 
-          'id': this.taskId,
-          'status': this.isClose,
-        }
-      );
-    }
-  }
-}
+      this.isClose = !this.isClose;
+      this.$emit('popStatus',
+        {
+          id: this.taskId,
+          status: this.isClose,
+        });
+    },
+  },
+};
 </script>
-

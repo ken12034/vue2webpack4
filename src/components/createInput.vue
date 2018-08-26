@@ -1,6 +1,9 @@
 <template>
   <div class="input-container">
-    <input type="text" v-model="message" v-focus="focusState" >
+    <input
+      v-focus="focusState"
+      v-model="message"
+      type="text" >
     <button @click="add"> + </button>
   </div>
 </template>
@@ -10,29 +13,28 @@
 export default {
   directives: {
     focus: {
-      update: function (el, {value}) {
+      update(el, { value }) {
         if (value) {
-          el.focus()
+          el.focus();
         }
-      }
-    }
+      },
+    },
   },
-  data(){
-    return{
-      message : '',
-      focusState: false
-    }
+  data() {
+    return {
+      message: '',
+      focusState: false,
+    };
   },
   mounted() {
-    
+
   },
-  methods:{
+  methods: {
     add() {
       this.$emit('addData', this.message);
       this.message = '';
-      this.focusState = true
-    }
-  }
-}
+      this.focusState = true;
+    },
+  },
+};
 </script>
-

@@ -22,7 +22,14 @@ module.exports = {
     contentBase: path.join(__dirname, '/'),
     compress: true,
     port: 9000,
-    hot: true
+    hot: true,
+    proxy: {
+      '/api': {
+          target: 'http://localhost:3000',
+          secure: false
+      }
+    }
+
   },
   resolve: {
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
