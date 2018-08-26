@@ -1,8 +1,8 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-
+//const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebPackPlugin = require("html-webpack-plugin");
 const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
@@ -18,7 +18,19 @@ module.exports = {
     path: __dirname + "/build/",
     filename: "main.js"
   },
+  devServer: {
+    contentBase: path.join(__dirname, '/'),
+    compress: true,
+    port: 9000,
+    hot: true,
+    proxy: {
+      '/api': {
+          target: 'http://localhost:3000',
+          secure: false
+      }
+    }
 
+  },
   resolve: {
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     extensions: ['.js', '.vue', '.json', 'sass', 'css'],
@@ -86,12 +98,15 @@ module.exports = {
   },
 
   plugins: [
-    new CleanWebpackPlugin('./build', { allowExternal: true }),
+    //new CleanWebpackPlugin('./build', { allowExternal: true }),
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
       filename: 'main.css',
     }),
-
+    new HtmlWebPackPlugin({
+      template: "./index.html",
+      filename: "./index.html"
+    }),
     new VueLoaderPlugin(),
   ],
 
