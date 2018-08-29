@@ -9,7 +9,7 @@ server.use(middlewares);
 // var rewrites = {'/api': '/posts'}
 // server.use(jsonServer.rewriter( rewrites ))
 
-server.use('/api', router);
+server.use(router);
 
 server.listen(3000, () => {
   // console.log('JSON Server is running');
