@@ -18,6 +18,7 @@
 
 
 <script>
+import { mapGetters } from 'vuex';
 import axios from 'axios';
 import createInput from './createInput.vue';
 import task from './task.vue';
@@ -35,18 +36,24 @@ export default {
       createNumber: 0,
     };
   },
+  computed: {
+    ...mapGetters({
+      test: 'allTask',
+    }),
+  },
   created() {
-    axios.get('/api/posts').then((res) => {
+    this.$store.dispatch('getTask');
+    axios.get('/posts').then((res) => {
       this.taskList = res.data.reverse();
       this.maxID();
     });
   },
   mounted() {
-
+    console.log(this.test);
   },
   methods: {
     newData(message) {
-      axios.post('/api/posts',
+      axios.post('/posts',
         {
           id: this.createNumber += 1,
           taskContent: message,
@@ -64,8 +71,8 @@ export default {
     },
 
     async removeAsync(number) {
-      await axios.delete(`/api/posts/${number}`);
-      await axios.get('/api/posts').then((res) => {
+      await axios.delete(`/posts/${number}`);
+      await axios.get('/posts').then((res) => {
         this.taskList = res.data.reverse();
         this.maxID();
       });
@@ -73,8 +80,8 @@ export default {
     async removeTaskData(number) {
       // let removeNumber = '';
 
-      await axios.delete(`/api/posts/${number}`);
-      await axios.get('/api/posts').then((res) => {
+      await axios.delete(`/posts/${number}`);
+      await axios.get('/posts').then((res) => {
         this.taskList = res.data.reverse();
         this.maxID();
       });

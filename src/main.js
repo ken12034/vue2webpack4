@@ -1,9 +1,10 @@
 import Vue from 'vue';
 
-import index from './components/index';
+import index from './components/index.vue';
+import store from './store';
 
-var app = new Vue({
-
-  render: h => h(index)
+const app = new Vue({
+  store,
+  render: h => h(index),
 
 }).$mount('#app');
