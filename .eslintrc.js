@@ -1,12 +1,13 @@
 module.exports = {
     
-  "parser": "babel-eslint",
+  
   "env": {
       "browser": true,
       "node": true
   },
   "extends": ["airbnb-base", "plugin:vue/recommended" ],
   "parserOptions": { 
+    "parser": "babel-eslint",
     "ecmaVersion": 8 
   }, 
   "rules": {
