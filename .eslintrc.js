@@ -1,14 +1,24 @@
 module.exports = {
     
-  
+  "plugins": [
+    "vue",  
+  ],
   "env": {
-      "browser": true,
-      "node": true
+    "es6": true,
+    "browser": true,
+    "node": true
   },
-  "extends": ["airbnb-base", "plugin:vue/recommended" ],
+  "extends": [
+    "airbnb-base", 
+    "plugin:vue/recommended",
+    "@vue/typescript"
+  ],
   "parserOptions": { 
     "parser": "babel-eslint",
-    "ecmaVersion": 8 
+    "ecmaVersion": 8 ,
+    "sourceType": "module",
+    "allowImportExportEverywhere": false,
+    "codeFrame": true
   }, 
   "rules": {
       "max-len": "off",
