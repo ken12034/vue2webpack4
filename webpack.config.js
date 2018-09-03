@@ -9,14 +9,15 @@ module.exports = {
   mode: 'development',
   entry: {
     app: [
-      'babel-polyfill',
-      './src/main.js',
-      './src/sass/main.sass',
+      './src/main.ts',
+      // 'babel-polyfill',
+      // './src/main.js',
+      // './src/sass/main.sass',
     ],
   },
   output: {
-    path: __dirname + "/build/",
-    filename: "main.js"
+    path: `${__dirname}/build/`,
+    filename: 'main.js',
   },
   devServer: {
     contentBase: path.join(__dirname, '/'),
@@ -73,7 +74,14 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
       },
-
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          appendTsSuffixTo: [/\.vue$/],
+        },
+      },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: 'url-loader?name=[name].[ext]'
