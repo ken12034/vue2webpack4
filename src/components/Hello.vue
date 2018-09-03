@@ -32,7 +32,6 @@ export default class HelloDecorator extends Vue {
 
     updated() {
      console.log(this.exclamationMarks)   
-        
     }
 
     get exclamationMarks(): string {
