@@ -16,7 +16,38 @@
 </template>
 
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
+import Component from "vue-class-component";
+
+import { Prop } from "vue-property-decorator";
+
+@Component({
+
+})
+export default class Task extends Vue {
+  public isClose:boolean = false;
+  @Prop() taskId!: number;
+  @Prop() taskContent!: string;
+  @Prop() taskStatus: boolean = false;
+
+  mounted() {
+    this.isClose = this.taskStatus;
+  }
+
+  remove() {
+    this.$emit('removeTask');
+  }
+  getValue() {
+    this.isClose = !this.isClose;
+    this.$emit('popStatus',
+    {
+      id: this.taskId,
+      status: this.isClose,
+    });
+  }
+}
+/*
 export default {
   props: {
     taskId: {
@@ -55,5 +86,5 @@ export default {
         });
     },
   },
-};
+};*/
 </script>

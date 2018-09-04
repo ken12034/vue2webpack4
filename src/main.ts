@@ -1,5 +1,5 @@
 import Vue from "vue";
-import HelloComponent from "./components/Hello.vue";
+/*import HelloComponent from "./components/Hello.vue";
 
 let v = new Vue({
     el: "#app",
@@ -13,4 +13,12 @@ let v = new Vue({
     components: {
         HelloComponent
     }
-});
+});*/
+
+import index from './components/index.vue';
+
+var app = new Vue({
+
+  render: h => h(index)
+
+}).$mount('#app');

@@ -17,35 +17,38 @@
 </template>
 
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
+import Component from "vue-class-component";
 import axios from 'axios';
 import createInput from './createInput.vue';
 import task from './task.vue';
 
+interface List {
+  id:number; 
+  taskList:string; 
+  status:boolean;
+}
 
-export default {
+@Component({
   components: {
     createInput,
     task,
-  },
-  data() {
-    return {
-      message: '123',
-      taskList: [],
-      createNumber: 0,
-    };
-  },
+  }
+})
+export default class Home extends Vue {
+  public taskList:Array<{id:number, taskList:string, status:boolean}> = [];
+  public createNumber:number = 0;
+
+  
   created() {
     axios.get('/api/posts').then((res) => {
       this.taskList = res.data.reverse();
       this.maxID();
     });
-  },
-  mounted() {
+  }
 
-  },
-  methods: {
-    newData(message) {
+  newData(message: string) {
       axios.post('/api/posts',
         {
           id: this.createNumber += 1,
@@ -54,60 +57,41 @@ export default {
         }).then((res) => {
         this.taskList.unshift(res.data);
       });
-      // this.taskList.unshift();
-    },
+  }
 
-    maxID() {
+  maxID() {
       if (this.taskList.length > 0) {
         this.createNumber = this.taskList[0].id + 1;
       }
-    },
+  }
 
-    async removeAsync(number) {
+  async removeAsync(number: string) {
       await axios.delete(`/api/posts/${number}`);
       await axios.get('/api/posts').then((res) => {
         this.taskList = res.data.reverse();
         this.maxID();
       });
-    },
-    async removeTaskData(number) {
-      // let removeNumber = '';
+  }
 
-      await axios.delete(`/api/posts/${number}`);
-      await axios.get('/api/posts').then((res) => {
+  async removeTaskData(number :string) {
+    await axios.delete(`/api/posts/${number}`);
+    await axios.get('/api/posts').then((res) => {
         this.taskList = res.data.reverse();
         this.maxID();
-      });
-      // this.removeAsync(number);
+    });
+  }
 
-      /* axios.delete(`/api/posts/${number}`)
-      .then((res)=>{
-        console.log(res.data);
-      }).get('/api/posts').then((res)=>{
-        console.log(res.data);
-        this.taskList = res.data.reverse();
-      }); */
-
-
-      /* Object.keys( this.taskList ).forEach((key) => {
-
-        if(this.taskList[key].id === number ){
-           removeNumber = key;
-        }
-
-      }); */
-
-      // this.taskList.splice(parseInt(removeNumber), 1);
-    },
-
-    setClose(obj) {
-      Object.keys(this.taskList).forEach((key) => {
+  setClose(obj:List) {
+      Object.keys(this.taskList).forEach((key:any) => {
         if (this.taskList[key].id === obj.id) {
           this.taskList[key].status = !this.taskList[key].status;
           // return false;
         }
       });
-    },
-  },
-};
+  }
+
+
+
+}
+
 </script>
