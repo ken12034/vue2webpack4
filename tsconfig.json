@@ -12,10 +12,12 @@
       "target": "es5",
       "experimentalDecorators": true,
       "allowSyntheticDefaultImports": true,
-      "allowJs": true
+      "allowJs": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
     
   },
   "include": [
-      "./src/**/*"
+      "./ROG/src/**/*"
   ]
 }
